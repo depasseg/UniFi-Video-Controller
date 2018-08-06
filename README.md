@@ -33,6 +33,7 @@ docker run \
         -e PUID=99 \
         -e PGID=100 \
         -e DEBUG=1 \
+        --restart unless-stopped \  
         pducharme/unifi-video-controller
 ```
 
@@ -48,3 +49,11 @@ mount: cannot mount tmpfs read-only
 ```
 
 If you get this tmpfs mount error, add `--security-opt apparmor:unconfined \` to your list of run options. This error has been seen on Ubuntu, but may occur on other platforms as well.
+
+# Starting and Stopping
+
+Once the `unifi-video` container has been deployed, you can check the status by running `sudo docker ps -a`.  It can be stopped with `sudo docker stop unifi-video` and started with `sudo docker start unifi-video`.
+
+# Updating
+
+The image can be updated by running `docker images |grep -v REPOSITORY|awk '{print $1}'|xargs -L1 docker pull` and then restarted with `sudo docker restart unifi-video`.
