@@ -14,6 +14,7 @@ Restart the docker, visit http://localhost:7080 or http://<ip.address>:7080/ to 
 # Run it
 ```
 docker run \
+        -d \
         --name unifi-video \
         --cap-add SYS_ADMIN \
         --cap-add DAC_READ_SEARCH \
@@ -29,16 +30,17 @@ docker run \
         -p 7447:7447 \
         -v <data dir>:/var/lib/unifi-video \
         -v <videos dir>:/var/lib/unifi-video/videos \
-        -e TZ=America/Los_Angeles \
+        -e TZ=America/New_York \
         -e PUID=99 \
         -e PGID=100 \
         -e DEBUG=1 \
-        pducharme/unifi-video-controller
+        --security-opt apparmor:unconfined \
+        depasseg/unifi-video-controller
 ```
 
 # Changing versions
 
-Starting with 3.9.0, releases are tagged. Using `pducharme/unifi-video-controller` or `pducharme/unifi-video-controller:latest` will get you the latest version. You can get a different version by using a specific tag, like `:3.9.0`, `:3.9.2` or `3.9.3`. If you update and have issues, you can quickly switch back to the previously working version.
+Starting with 3.9.0, releases are tagged. Using `depasseg/unifi-video-controller` or `depasseg/unifi-video-controller:latest` will get you the latest version. You can get a different version by using a specific tag, like `:3.9.0`, `:3.9.2` or `3.9.3`. If you update and have issues, you can quickly switch back to the previously working version.
 
 #  tmpfs mount error
 
